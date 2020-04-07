@@ -2,10 +2,32 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>TanvirArjel</Authors>
+    <Company>Tanvir Ahmad Arjel</Company>
+    <Copyright>©2019 TanvirArjel. All rights reserved.</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/TanvirArjel/AspNetCore.DependencyInjection.ServiceRegistration</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/TanvirArjel/AspNetCore.DependencyInjection.ServiceRegistration</RepositoryUrl>
+    <PackageTags>ASP.NET Core, Dependency Injection, Dynamic Service Registration</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>This is a ASP.NET Core dynamic service registration library which enables you to register all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation.
+
+For configuration details please visit the GitHub repository.</Description>
+    <PackageReleaseNotes>This is the initial version of this library. This library enables you to register all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="stylecop.json" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

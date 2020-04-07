@@ -10,6 +10,6 @@ namespace AspNetCore.DependencyInjection.ServiceRegistration.Interfaces
     /// </summary>
     public interface IScopedService
     {
-        // This is marker interface
+        // This is a marker interface
     }
 }

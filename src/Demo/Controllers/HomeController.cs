@@ -10,16 +10,22 @@ namespace Demo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITestService _testService;
+        private readonly LoneService _loneService;
 
-        public HomeController(ILogger<HomeController> logger, ITestService testService)
+        public HomeController(
+            ILogger<HomeController> logger,
+            ITestService testService,
+            LoneService loneService)
         {
             _logger = logger;
             _testService = testService;
+            _loneService = loneService;
         }
 
         public IActionResult Index()
         {
             string myName = _testService.GetMyName();
+            string helloString = _loneService.GetString();
             return View();
         }
 

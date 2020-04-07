@@ -10,6 +10,6 @@ namespace AspNetCore.DependencyInjection.ServiceRegistration.Interfaces
     /// </summary>
     public interface ISingletonService
     {
-        // This is marker interface
+        /// This is a marker interface
     }
 }

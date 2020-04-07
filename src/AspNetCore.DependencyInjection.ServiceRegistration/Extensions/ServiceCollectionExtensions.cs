@@ -56,20 +56,26 @@ namespace AspNetCore.DependencyInjection.ServiceRegistration.Extensions
 
             foreach (Type implementation in implementations)
             {
-                Type[] interfaceTypes = implementation.GetInterfaces().ToArray();
-                foreach (Type interfaceType in interfaceTypes)
+                Type[] interfaceTypes = implementation.GetInterfaces()
+                    .Where(i => i != typeof(ITransientService) && i != typeof(IScopedService) && i != typeof(ISingletonService)).ToArray();
+
+                if (interfaceTypes.Any())
                 {
-                    if (interfaceType != typeof(ITransientService) && interfaceType != typeof(IScopedService) && interfaceType != typeof(ISingletonService))
+                    foreach (Type interfaceType in interfaceTypes)
                     {
                         services.Add(new ServiceDescriptor(interfaceType, implementation, lifetime));
                     }
+                }
+                else
+                {
+                    services.Add(new ServiceDescriptor(implementation, implementation, lifetime));
                 }
             }
         }
 
         private static void LoadAssemblies()
         {
-            List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().Distinct().ToList();
+            List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
             string[] loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
 
             string[] referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
