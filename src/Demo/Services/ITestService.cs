@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AspNetCore.DependencyInjection.ServiceRegistration.Interfaces;
+using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
 
 namespace Demo.Services
 {

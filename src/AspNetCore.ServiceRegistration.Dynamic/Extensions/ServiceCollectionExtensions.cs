@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using AspNetCore.DependencyInjection.ServiceRegistration.Interfaces;
+using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AspNetCore.DependencyInjection.ServiceRegistration.Extensions
+namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
 {
     public static class ServiceCollectionExtensions
     {

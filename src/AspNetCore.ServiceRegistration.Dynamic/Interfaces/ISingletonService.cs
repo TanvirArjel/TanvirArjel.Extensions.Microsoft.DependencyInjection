@@ -2,7 +2,7 @@
 // Copyright (c) TanvirArjel. All rights reserved.
 // </copyright>
 
-namespace AspNetCore.DependencyInjection.ServiceRegistration.Interfaces
+namespace AspNetCore.ServiceRegistration.Dynamic.Interfaces
 {
     /// <summary>
     /// The services implemented this interface will automatically be registered with singleton life time in
@@ -10,6 +10,6 @@ namespace AspNetCore.DependencyInjection.ServiceRegistration.Interfaces
     /// </summary>
     public interface ISingletonService
     {
-        /// This is a marker interface
+        // This is a marker interface
     }
 }

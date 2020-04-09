@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AspNetCore.DependencyInjection.ServiceRegistration\AspNetCore.DependencyInjection.ServiceRegistration.csproj" />
+    <ProjectReference Include="..\AspNetCore.ServiceRegistration.Dynamic\AspNetCore.ServiceRegistration.Dynamic.csproj" />
   </ItemGroup>
 
 </Project>

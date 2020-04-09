@@ -1,5 +1,5 @@
-using AspNetCore.DependencyInjection.ServiceRegistration.Extensions;
-using AspNetCore.DependencyInjection.ServiceRegistration.Interfaces;
+using AspNetCore.ServiceRegistration.Dynamic.Extensions;
+using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
