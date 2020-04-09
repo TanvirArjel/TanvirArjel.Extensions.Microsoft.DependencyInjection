@@ -4,11 +4,11 @@ This is a ASP.NET Core dynamic service registration library which enables you to
 
 ## How do I get started?
 
-Configuring **AspNetCore.DependencyInjection.ServiceRegistration** into your ASP.NET Core project is simple as below:
+Configuring **AspNetCore.ServiceRegistration.Dynamic** into your ASP.NET Core project is simple as below:
 
- 1. First install the lastest version of `AspNetCore.DependencyInjection.ServiceRegistration` [nuget package](https://www.nuget.org/packages/AspNetCore.CustomValidation) into your project as follows:
+ 1. First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
  
-    `Install-Package AspNetCore.DependencyInjection.ServiceRegistration`
+    `Install-Package AspNetCore.ServiceRegistration.Dynamic`
     
  Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
  
