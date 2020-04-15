@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using AspNetCore.ServiceRegistration.Dynamic.Attributes;
 using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,12 +22,105 @@ namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
         /// interfaces.
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
-        /// <param name="services">Type to be extended.</param>
-        public static void RegisterAllTypes<T>(this IServiceCollection services)
+        /// <param name="serviceCollection">Type to be extended.</param>
+        [Obsolete("This extension method has been marked as obsolete and will be removed in future versions. Pleae use 'services.AddServicesOfType<T>()' instead.")]
+        public static void RegisterAllTypes<T>(this IServiceCollection serviceCollection)
         {
-            if (services == null)
+            if (serviceCollection == null)
             {
-                throw new ArgumentNullException(nameof(services));
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            RegisterAllServices<T>(serviceCollection);
+        }
+
+        /// <summary>
+        /// This extension method is used to register the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        public static void AddServicesOfType<T>(this IServiceCollection serviceCollection)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            RegisterAllServices<T>(serviceCollection);
+        }
+
+        /// <summary>
+        /// This extension method is used to register the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            ServiceLifetime lifetime = ServiceLifetime.Scoped;
+
+            switch (typeof(T).Name)
+            {
+                case nameof(TransientServiceAttribute):
+                    lifetime = ServiceLifetime.Transient;
+                    break;
+                case nameof(ScopedServiceAttribute):
+                    lifetime = ServiceLifetime.Scoped;
+                    break;
+                case nameof(SingletonServiceAttribute):
+                    lifetime = ServiceLifetime.Singleton;
+                    break;
+                default:
+                    throw new ArgumentException($"The type {typeof(T).Name} is not a valid type in this context.");
+            }
+
+            if (!_loadedAssemblies.Any())
+            {
+                LoadAssemblies();
+            }
+
+            List<Type> servicesToBeRegistered = _loadedAssemblies
+                .SelectMany(assembly => assembly.GetTypes()).Where(type => type.IsDefined(typeof(T), false)).ToList();
+
+            foreach (Type serviceType in servicesToBeRegistered)
+            {
+                List<Type> implementations = _loadedAssemblies.SelectMany(a => a.GetTypes())
+                    .Where(type => serviceType.IsAssignableFrom(type) && type.IsClass).ToList();
+
+                if (implementations.Any())
+                {
+                    foreach (Type implementation in implementations)
+                    {
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == implementation);
+
+                        if (!isAlreadyRegistered)
+                        {
+                            serviceCollection.Add(new ServiceDescriptor(serviceType, implementation, lifetime));
+                        }
+                    }
+                }
+                else
+                {
+                    bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == serviceType);
+
+                    if (!isAlreadyRegistered)
+                    {
+                        serviceCollection.Add(new ServiceDescriptor(serviceType, serviceType, lifetime));
+                    }
+                }
+            }
+        }
+
+        private static void RegisterAllServices<T>(IServiceCollection serviceCollection)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
             }
 
             ServiceLifetime lifetime = ServiceLifetime.Scoped;
@@ -56,19 +150,29 @@ namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
 
             foreach (Type implementation in implementations)
             {
-                Type[] interfaceTypes = implementation.GetInterfaces()
+                Type[] servicesToBeRegistered = implementation.GetInterfaces()
                     .Where(i => i != typeof(ITransientService) && i != typeof(IScopedService) && i != typeof(ISingletonService)).ToArray();
 
-                if (interfaceTypes.Any())
+                if (servicesToBeRegistered.Any())
                 {
-                    foreach (Type interfaceType in interfaceTypes)
+                    foreach (Type serviceType in servicesToBeRegistered)
                     {
-                        services.Add(new ServiceDescriptor(interfaceType, implementation, lifetime));
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == implementation);
+
+                        if (!isAlreadyRegistered)
+                        {
+                            serviceCollection.Add(new ServiceDescriptor(serviceType, implementation, lifetime));
+                        }
                     }
                 }
                 else
                 {
-                    services.Add(new ServiceDescriptor(implementation, implementation, lifetime));
+                    bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == implementation && s.ImplementationType == implementation);
+
+                    if (!isAlreadyRegistered)
+                    {
+                        serviceCollection.Add(new ServiceDescriptor(implementation, implementation, lifetime));
+                    }
                 }
             }
         }
@@ -81,7 +185,7 @@ namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
             string[] referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
             List<string> toLoadAssemblies = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
 
-            foreach (var path in toLoadAssemblies)
+            foreach (string path in toLoadAssemblies)
             {
                 try
                 {

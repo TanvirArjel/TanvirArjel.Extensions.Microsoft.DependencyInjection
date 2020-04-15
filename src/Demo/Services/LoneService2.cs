@@ -1,10 +1,10 @@
 ﻿namespace Demo.Services
 {
-    public class LoneService : ILoneService
+    public class LoneService2 : ILoneService
     {
         public string GetString()
         {
-            return "Hello! I am tanvir";
+            return "Message from lone service 2";
         }
     }
 }

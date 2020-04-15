@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Demo.Factory;
 using Demo.Models;
 using Demo.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,16 +11,16 @@ namespace Demo.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ITestService _testService;
-        private readonly LoneService _loneService;
+        private readonly ILoneService _loneService;
 
         public HomeController(
             ILogger<HomeController> logger,
             ITestService testService,
-            LoneService loneService)
+            ILoneServiceFactory loneServiceFactory)
         {
             _logger = logger;
             _testService = testService;
-            _loneService = loneService;
+            _loneService = loneServiceFactory.GetLoneSerive("1");
         }
 
         public IActionResult Index()
