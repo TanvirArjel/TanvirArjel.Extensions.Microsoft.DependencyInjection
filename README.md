@@ -22,19 +22,19 @@ Now let your services to inherit any of the `ITransientService`, `IScoperService
     {
         public async Task CreateEmployeeAsync(Employee employee)
         {
-              // Implementation here
+            // Implementation here
         };
     }
         
  ### Using Attribute:
 
-Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribut` attributes as follows:
+Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribute` attributes as follows:
  
     // Mark with ScopedServiceAttribute if you want to register `IEmployeeService` as scoped service.
     [ScopedService]
     public class IEmployeeService
     {
-            Task CreateEmployeeAsync(Employee employee);
+        Task CreateEmployeeAsync(Employee employee);
     }
         
     internal class EmployeeService : IEmployeeService 
