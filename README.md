@@ -4,36 +4,54 @@ This is a ASP.NET Core dynamic service registration library which enables you to
 
 ## How do I get started?
 
-Configuring **AspNetCore.ServiceRegistration.Dynamic** into your ASP.NET Core project is simple as below:
-
- 1. First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
+First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
  
-    `Install-Package AspNetCore.ServiceRegistration.Dynamic`
+    Install-Package AspNetCore.ServiceRegistration.Dynamic
     
- Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
+### Using Marker Interface:
+
+Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
  
-        public class IEmployeeService : IScopedService // Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
-        {
-            Task CreateEmployeeAsync(Employee employee);
-        }
+    // Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
+    public class IEmployeeService : IScopedService
+    {
+        Task CreateEmployeeAsync(Employee employee);
+    }
         
-        internal class EmployeeService : IEmployeeService 
+    internal class EmployeeService : IEmployeeService 
+    {
+        public async Task CreateEmployeeAsync(Employee employee)
         {
-           public async Task CreateEmployeeAsync(Employee employee)
-           {
               // Implementation here
-           };
-        }
+        };
+    }
+        
+ ### Using Attribute:
+
+Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribut` attributes as follows:
+ 
+    // Mark with ScopedServiceAttribute if you want to register `IEmployeeService` as scoped service.
+    [ScopedService]
+    public class IEmployeeService
+    {
+            Task CreateEmployeeAsync(Employee employee);
+    }
+        
+    internal class EmployeeService : IEmployeeService 
+    {
+        public async Task CreateEmployeeAsync(Employee employee)
+        {
+           // Implementation here
+        };
+    }
         
   Now in your `ConfigureServices` method of the `Startup` class:
   
-       public static void ConfigureServices(IServiceCollection services)
-       {
-            services.RegisterAllTypes<IScopedService>(); // This will register all the Scoped services of your application.
-            services.RegisterAllTypes<ITransientService>(); // This will register all the Transient services of your application.
-            services.RegisterAllTypes<ISingletonService>(); // This will register all the Singleton services of your application.
-            services.AddControllersWithViews();
-       }
+    public static void ConfigureServices(IServiceCollection services)
+    {
+        services.AddServicesOfType<IScopedService>();
+        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
+    }
        
   ### That's it!!
   
@@ -43,4 +61,4 @@ Configuring **AspNetCore.ServiceRegistration.Dynamic** into your ASP.NET Core pr
    
   # Request
    
-   If you find this library useful to you, please don't forget to encouraging us to do such more stuffs by giving a star to this repository. Thank you.
+   **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star to this repository. Thank you.**
