@@ -12,18 +12,14 @@
     <PackageTags>ASP.NET Core, Dependency Injection, Dynamic Service Registration</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageIcon>icon.png</PackageIcon>
-    <Description>
-      This is a ASP.NET Core dynamic service registration library which enables you to register all your services
-      into ASP.NET Core Dependency Injection container at once without exposing the service implementation.
-      
-      This library supports both marker interface and attribute based service registration.
+    <Description>This is a ASP.NET Core dynamic service registration library which enables you to register all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation.
 
-      For configuration details please visit the GitHub repository.</Description>
-    <PackageReleaseNotes>
-      This release added to capability of registering all your services into
-      ASP.NET Core Dependency Injection container at once without exposing the service implementation with attribute.
+This library supports both marker interface and attribute based service registration.
 
-      For more details, please visit the GitHub repository.</PackageReleaseNotes>
+For configuration details please visit the GitHub repository.</Description>
+    <PackageReleaseNotes>This release added to capability of registering all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation with attribute. 
+
+For more details, please visit the GitHub repository.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.1.0</Version>
   </PropertyGroup>
