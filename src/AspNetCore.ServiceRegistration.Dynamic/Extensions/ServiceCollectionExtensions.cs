@@ -179,7 +179,7 @@ namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
 
         private static void LoadAssemblies()
         {
-            List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            List<Assembly> loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).ToList();
             string[] loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
 
             string[] referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
