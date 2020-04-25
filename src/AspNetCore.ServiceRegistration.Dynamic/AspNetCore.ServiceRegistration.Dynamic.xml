@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AspNetCore.ServiceRegistration.Dynamic</name>
+    </assembly>
+    <members>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.ScopedServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with scoped life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.SingletonServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with singleton life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.TransientServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with transient life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Contains all the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extension methods for dynamic service registration.
+            </summary>
+        </member>
+        <member name="M:AspNetCore.ServiceRegistration.Dynamic.Extensions.ServiceCollectionExtensions.RegisterAllTypes``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method is used to register the types implementing any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.IScopedService"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ITransientService"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ISingletonService"/>
+            interfaces.
+            </summary>
+            <typeparam name="T">Any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.IScopedService"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ITransientService"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ISingletonService"/> interfaces.</typeparam>
+            <param name="serviceCollection">Type to be extended.</param>
+        </member>
+        <member name="M:AspNetCore.ServiceRegistration.Dynamic.Extensions.ServiceCollectionExtensions.AddServicesOfType``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This extension method is used to register the types implementing any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.IScopedService"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ITransientService"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ISingletonService"/>
+            interfaces.
+            </summary>
+            <typeparam name="T">Any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.IScopedService"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ITransientService"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ISingletonService"/> interfaces.</typeparam>
+            <param name="serviceCollection">Type to be extended.</param>
+        </member>
+        <member name="M:AspNetCore.ServiceRegistration.Dynamic.Extensions.ServiceCollectionExtensions.AddServicesWithAttributeOfType``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This extension method is used to register the types containing any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.ScopedServiceAttribute"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.TransientServiceAttribute"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.SingletonServiceAttribute"/> attributes.
+            </summary>
+            <typeparam name="T">Any of the <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.ScopedServiceAttribute"/>, <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.TransientServiceAttribute"/> and <see cref="T:AspNetCore.ServiceRegistration.Dynamic.Attributes.SingletonServiceAttribute"/> attributes.</typeparam>
+            <param name="serviceCollection">Type to be extended.</param>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.IScopedService">
+            <summary>
+            The services implemented this interface will automatically be registered with scoped life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ISingletonService">
+            <summary>
+            The services implemented this interface will automatically be registered with singleton life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:AspNetCore.ServiceRegistration.Dynamic.Interfaces.ITransientService">
+            <summary>
+            The services implemented this interface will automatically be registered with transient life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+    </members>
+</doc>

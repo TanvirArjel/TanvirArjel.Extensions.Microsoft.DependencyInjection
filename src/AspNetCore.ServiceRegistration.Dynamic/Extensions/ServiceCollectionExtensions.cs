@@ -13,6 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCore.ServiceRegistration.Dynamic.Extensions
 {
+    /// <summary>
+    /// Contains all the <see cref="IServiceCollection"/> extension methods for dynamic service registration.
+    /// </summary>
     public static class ServiceCollectionExtensions
     {
         private static List<Assembly> _loadedAssemblies = new List<Assembly>();
