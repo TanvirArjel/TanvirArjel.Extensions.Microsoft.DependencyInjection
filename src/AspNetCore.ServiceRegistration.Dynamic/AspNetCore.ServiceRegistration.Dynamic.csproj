@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.1.1</Version>
+    <Version>1.2.0</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>TanvirArjel</Authors>
@@ -21,7 +21,7 @@
 This library supports both the marker interface and attribute-based service registration.
 
 For configuration details please visit the GitHub repository.</Description>
-    <PackageReleaseNotes>This release contains a fix of a crucial bug related to a dynamic assembly loading.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. This release added the option to ignore any assemblies from the type scanning if needed.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
