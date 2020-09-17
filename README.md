@@ -52,6 +52,17 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
         services.AddServicesOfType<IScopedService>();
         services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
     }
+    
+  Moreover, if you want any assembly to be ignored during type scanning:
+  
+    public static void ConfigureServices(IServiceCollection services)
+    {
+        // Assemblies start with "Microsoft.AspNetCore", "Microsoft.Extensions" will be ignored during type scanning.
+        string[] assembliesToBeIngored = new string[] { "Microsoft.AspNetCore", "Microsoft.Extensions" };
+        services.AddServicesOfType<IScopedService>(assembliesToBeIngored);
+        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeIngored);
+    }
+  
        
   ### That's it!!
   
