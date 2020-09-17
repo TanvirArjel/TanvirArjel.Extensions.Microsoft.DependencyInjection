@@ -4,7 +4,7 @@
 
 using System;
 
-namespace AspNetCore.ServiceRegistration.Dynamic.Attributes
+namespace AspNetCore.ServiceRegistration.Dynamic
 {
     /// <summary>
     /// The services containing this <c>Attribute</c> will automatically be registered with transient life time in

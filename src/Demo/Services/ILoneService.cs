@@ -1,8 +1,6 @@
-﻿using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
-
-namespace Demo.Services
+﻿namespace Demo.Services
 {
-    public interface ILoneService : IScopedService
+    public interface ILoneService
     {
         string GetString();
     }

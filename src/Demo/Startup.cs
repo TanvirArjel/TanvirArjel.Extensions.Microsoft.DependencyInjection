@@ -1,6 +1,4 @@
-using AspNetCore.ServiceRegistration.Dynamic.Attributes;
-using AspNetCore.ServiceRegistration.Dynamic.Extensions;
-using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
+using AspNetCore.ServiceRegistration.Dynamic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,8 +19,9 @@ namespace Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public static void ConfigureServices(IServiceCollection services)
         {
-            services.AddServicesOfType<IScopedService>("AspNetCore");
-            services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
+            string[] assemblies = new string[] { "Microsoft.AspNetCore", };
+            services.AddServicesOfType<IScopedService>("Demo");
+            services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assemblies);
             services.AddControllersWithViews();
         }
 

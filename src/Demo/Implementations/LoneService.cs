@@ -1,4 +1,6 @@
-﻿namespace Demo.Services
+﻿using Demo.Services;
+
+namespace Demo.Implementations
 {
     public class LoneService : ILoneService
     {

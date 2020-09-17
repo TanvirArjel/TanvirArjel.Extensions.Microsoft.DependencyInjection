@@ -1,5 +1,4 @@
-﻿using AspNetCore.ServiceRegistration.Dynamic.Attributes;
-using AspNetCore.ServiceRegistration.Dynamic.Interfaces;
+﻿using AspNetCore.ServiceRegistration.Dynamic;
 
 namespace Demo.Services
 {

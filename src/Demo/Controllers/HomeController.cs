@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Demo.Factory;
+using Demo.GenericServices;
 using Demo.Models;
 using Demo.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -12,21 +13,25 @@ namespace Demo.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ITestService _testService;
         private readonly ILoneService _loneService;
+        private readonly IRepository<Employee> _repository;
 
         public HomeController(
             ILogger<HomeController> logger,
             ITestService testService,
-            ILoneServiceFactory loneServiceFactory)
+            ILoneServiceFactory loneServiceFactory,
+            IRepository<Employee> repository)
         {
             _logger = logger;
             _testService = testService;
             _loneService = loneServiceFactory.GetLoneSerive("1");
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
-            string myName = _testService.GetMyName();
-            string helloString = _loneService.GetString();
+            string welcomeMessage = _repository.Welcome("Tanvir");
+            ////string myName = _testService.GetMyName();
+            ////string helloString = _loneService.GetString();
             return View();
         }
 

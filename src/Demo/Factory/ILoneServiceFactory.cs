@@ -1,4 +1,4 @@
-﻿using AspNetCore.ServiceRegistration.Dynamic.Attributes;
+﻿using AspNetCore.ServiceRegistration.Dynamic;
 using Demo.Services;
 
 namespace Demo.Factory

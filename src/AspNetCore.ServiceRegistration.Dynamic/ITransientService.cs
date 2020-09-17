@@ -2,7 +2,7 @@
 // Copyright (c) TanvirArjel. All rights reserved.
 // </copyright>
 
-namespace AspNetCore.ServiceRegistration.Dynamic.Interfaces
+namespace AspNetCore.ServiceRegistration.Dynamic
 {
     /// <summary>
     /// The services implemented this interface will automatically be registered with transient life time in
