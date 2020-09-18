@@ -8,6 +8,10 @@ This is a ASP.NET Core dynamic service registration library which enables you to
 2. This release also added the ability to register open generic types.
 3. This release brought everything under one namespace, which is `AspNetCore.ServiceRegistration.Dynamic`
 
+# Breaking change from version 1.2.0:
+
+1. Namespace `AspNetCore.ServiceRegistration.Dynamic.Interfaces`,`AspNetCore.ServiceRegistration.Dynamic.Attributes` and `AspNetCore.ServiceRegistration.Dynamic.Extensions` have been replaced with `AspNetCore.ServiceRegistration.Dynamic`.
+
 ## How do I get started?
 
 First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
