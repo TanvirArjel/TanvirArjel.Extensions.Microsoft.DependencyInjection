@@ -2,6 +2,12 @@
 
 This is a ASP.NET Core dynamic service registration library which enables you to register all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation.
 
+# What's new in version 2.0.0
+
+1. This release added the option to scan only specific assemblies which added drastic performance improvement. **(This is a breaking change from version 1.2.0)**
+2. This release also added the ability to register open generic types.
+3. This release brought everything under one namespace, which is `AspNetCore.ServiceRegistration.Dynamic`
+
 ## How do I get started?
 
 First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
@@ -57,10 +63,10 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
   
     public static void ConfigureServices(IServiceCollection services)
     {
-        // Assemblies start with "Microsoft.AspNetCore", "Microsoft.Extensions" will be ignored during type scanning.
-        string[] assembliesToBeIngored = new string[] { "Microsoft.AspNetCore", "Microsoft.Extensions" };
-        services.AddServicesOfType<IScopedService>(assembliesToBeIngored);
-        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeIngored);
+        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned. (From version 2.0.0)
+        string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
+        services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
+        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
     }
   
        
