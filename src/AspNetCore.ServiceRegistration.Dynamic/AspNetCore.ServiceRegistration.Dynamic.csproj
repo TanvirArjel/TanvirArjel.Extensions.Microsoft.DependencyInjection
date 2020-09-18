@@ -21,7 +21,11 @@
 This library supports both the marker interface and attribute-based service registration.
 
 For configuration details please visit the GitHub repository.</Description>
-    <PackageReleaseNotes>1. This release added the option to ignore any assemblies from the type scanning if needed.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. This release added the option to scan only specific assemblies which added drastic performance improvement.
+
+2. This release also added the ability to register open generic types.
+
+3. This release brought everything under one namespace, which is `AspNetCore.ServiceRegistration.Dynamic`</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

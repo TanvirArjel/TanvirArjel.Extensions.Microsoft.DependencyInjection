@@ -2,7 +2,7 @@
 
 namespace Demo.Services
 {
-    [ScopedService]
+    ////[ScopedService]
     public interface ITestService : IScopedService
     {
         string GetMyName();

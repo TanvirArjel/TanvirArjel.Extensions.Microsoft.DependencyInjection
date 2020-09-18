@@ -66,21 +66,32 @@ namespace AspNetCore.ServiceRegistration.Dynamic
                 {
                     foreach (Type serviceType in servicesToBeRegistered)
                     {
-                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == implementation);
+                        bool isGenericTypeDefinition = implementation.IsGenericType && implementation.IsGenericTypeDefinition;
+                        Type service = isGenericTypeDefinition
+                            && serviceType.IsGenericType
+                            && serviceType.IsGenericTypeDefinition == false
+                            && serviceType.ContainsGenericParameters
+                                ? serviceType.GetGenericTypeDefinition()
+                                : serviceType;
+
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == service && s.ImplementationType == implementation);
 
                         if (!isAlreadyRegistered)
                         {
-                            serviceCollection.Add(new ServiceDescriptor(serviceType, implementation, lifetime));
+                            serviceCollection.Add(new ServiceDescriptor(service, implementation, lifetime));
                         }
                     }
                 }
                 else
                 {
-                    bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == implementation && s.ImplementationType == implementation);
-
-                    if (!isAlreadyRegistered)
+                    if (implementation.IsClass)
                     {
-                        serviceCollection.Add(new ServiceDescriptor(implementation, implementation, lifetime));
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == implementation && s.ImplementationType == implementation);
+
+                        if (!isAlreadyRegistered)
+                        {
+                            serviceCollection.Add(new ServiceDescriptor(implementation, implementation, lifetime));
+                        }
                     }
                 }
             }
@@ -126,28 +137,51 @@ namespace AspNetCore.ServiceRegistration.Dynamic
 
             foreach (Type serviceType in servicesToBeRegistered)
             {
-                List<Type> implementations = _loadedAssemblies.SelectMany(a => a.GetTypes())
+                List<Type> implementations = new List<Type>();
+
+                if (serviceType.IsGenericType && serviceType.IsGenericTypeDefinition)
+                {
+                    implementations = _loadedAssemblies.SelectMany(a => a.GetTypes())
+                    .Where(type => type.IsGenericType && type.IsClass && type.GetInterfaces()
+                    .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == serviceType.GetGenericTypeDefinition()))
+                    .ToList();
+                }
+                else
+                {
+                    implementations = _loadedAssemblies.SelectMany(a => a.GetTypes())
                     .Where(type => serviceType.IsAssignableFrom(type) && type.IsClass).ToList();
+                }
 
                 if (implementations.Any())
                 {
                     foreach (Type implementation in implementations)
                     {
-                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == implementation);
+                        bool isGenericTypeDefinition = implementation.IsGenericType && implementation.IsGenericTypeDefinition;
+                        Type service = isGenericTypeDefinition
+                            && serviceType.IsGenericType
+                            && serviceType.IsGenericTypeDefinition == false
+                            && serviceType.ContainsGenericParameters
+                                  ? serviceType.GetGenericTypeDefinition()
+                                  : serviceType;
+
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == service && s.ImplementationType == implementation);
 
                         if (!isAlreadyRegistered)
                         {
-                            serviceCollection.Add(new ServiceDescriptor(serviceType, implementation, lifetime));
+                            serviceCollection.Add(new ServiceDescriptor(service, implementation, lifetime));
                         }
                     }
                 }
                 else
                 {
-                    bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == serviceType);
-
-                    if (!isAlreadyRegistered)
+                    if (serviceType.IsClass)
                     {
-                        serviceCollection.Add(new ServiceDescriptor(serviceType, serviceType, lifetime));
+                        bool isAlreadyRegistered = serviceCollection.Any(s => s.ServiceType == serviceType && s.ImplementationType == serviceType);
+
+                        if (!isAlreadyRegistered)
+                        {
+                            serviceCollection.Add(new ServiceDescriptor(serviceType, serviceType, lifetime));
+                        }
                     }
                 }
             }

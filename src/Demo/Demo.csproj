@@ -6,6 +6,7 @@
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishSingleFile>true</PublishSingleFile>
     <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
