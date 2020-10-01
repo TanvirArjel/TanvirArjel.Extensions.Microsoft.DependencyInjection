@@ -1,22 +1,17 @@
-# ASP.NET Core Dynammic Service Registration
+# NET 5.0 and .NET Core Dynamic Service Registration
 
-This is a ASP.NET Core dynamic service registration library which enables you to register all your services into ASP.NET Core Dependency Injection container at once without exposing the service implementation.
+This is a NET 5.0 and .NET Core dynamic service registration library which enables you to register all your services into .NET 5.0 and .NET Core Dependency Injection container at once without exposing the service implementation.
 
-# What's new in version 2.0.0
+# What's new in version 1.0.0
 
-1. This release added the option to scan only specific assemblies which added drastic performance improvement. **(This is a breaking change from version 1.2.0)**
-2. This release also added the ability to register open generic types.
-3. This release brought everything under one namespace, which is `AspNetCore.ServiceRegistration.Dynamic`
-
-# Breaking change from version 1.2.0:
-
-1. Namespace `AspNetCore.ServiceRegistration.Dynamic.Interfaces`,`AspNetCore.ServiceRegistration.Dynamic.Attributes` and `AspNetCore.ServiceRegistration.Dynamic.Extensions` have been replaced with `AspNetCore.ServiceRegistration.Dynamic`.
+1. This is the initial relase of this library which was previously named as `AspNetCore.ServiceRegistration.Dynamic` [Branch Link](https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection/tree/AspNetCore.ServiceRegistration.Dynamic)
 
 ## How do I get started?
 
-First install the lastest version of `AspNetCore.ServiceRegistration.Dynamic` [nuget package](https://www.nuget.org/packages/AspNetCore.ServiceRegistration.Dynamic) into your project as follows:
+First install the lastest version of `
+TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://www.nuget.org/packages/TanvirArjel.Extensions.Microsoft.DependencyInjection) into your project as follows:
  
-    Install-Package AspNetCore.ServiceRegistration.Dynamic
+    Install-Package TanvirArjel.Extensions.Microsoft.DependencyInjection
     
 ### Using Marker Interface:
 
@@ -67,7 +62,7 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
   
     public static void ConfigureServices(IServiceCollection services)
     {
-        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned. (From version 2.0.0)
+        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
         string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
         services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
         services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
