@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TanvirArjel.Extensions.Microsoft.DependencyInjection</name>
+    </assembly>
+    <members>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.IScopedService">
+            <summary>
+            The services implemented this interface will automatically be registered with scoped life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ISingletonService">
+            <summary>
+            The services implemented this interface will automatically be registered with singleton life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ITransientService">
+            <summary>
+            The services implemented this interface will automatically be registered with transient life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ScopedServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with scoped life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            Contains all the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extension methods for dynamic service registration.
+            </summary>
+        </member>
+        <member name="M:TanvirArjel.Extensions.Microsoft.DependencyInjection.ServiceCollectionExtensions.AddServicesOfType``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String[])">
+            <summary>
+            This extension method is used to register the types implementing any of the <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.IScopedService"/>, <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ITransientService"/> and <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ISingletonService"/>
+            interfaces.
+            </summary>
+            <typeparam name="T">Any of the <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.IScopedService"/>, <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ITransientService"/> and <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ISingletonService"/> interfaces.</typeparam>
+            <param name="serviceCollection">Type to be extended.</param>
+            <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
+        </member>
+        <member name="M:TanvirArjel.Extensions.Microsoft.DependencyInjection.ServiceCollectionExtensions.AddServicesWithAttributeOfType``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String[])">
+            <summary>
+            This extension method is used to register the types containing any of the <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ScopedServiceAttribute"/>, <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.TransientServiceAttribute"/> and <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.SingletonServiceAttribute"/> attributes.
+            </summary>
+            <typeparam name="T">Any of the <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.ScopedServiceAttribute"/>, <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.TransientServiceAttribute"/> and <see cref="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.SingletonServiceAttribute"/> attributes.</typeparam>
+            <param name="serviceCollection">Type to be extended.</param>
+            <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.SingletonServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with singleton life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+        <member name="T:TanvirArjel.Extensions.Microsoft.DependencyInjection.TransientServiceAttribute">
+            <summary>
+            The services containing this <c>Attribute</c> will automatically be registered with transient life time in
+            ASP.NET Core Dependency Injection Container.
+            </summary>
+        </member>
+    </members>
+</doc>
