@@ -71,10 +71,10 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
        
   ### That's it!!
   
-  # Note
+  # Bug(🐞) Report 
    
    Dont forget to submit an issue if you face. we will try to resolve as soon as possible.
    
-  # Request
+  # Give a star (⭐)
    
-   **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star to this repository. Thank you.**
+   **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star (⭐) to this repository. Thank you.**
