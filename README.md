@@ -58,7 +58,7 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
         services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
     }
     
-  Moreover, if you want any assembly to be ignored during type scanning:
+  Moreover, if you want only specific assemblies to be scanned during type scanning:
   
     public static void ConfigureServices(IServiceCollection services)
     {
