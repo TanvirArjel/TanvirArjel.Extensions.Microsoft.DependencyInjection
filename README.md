@@ -1,3 +1,7 @@
+  # Give a star (⭐)
+   
+   **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star (⭐) to this repository. Thank you.**
+
 # NET 5.0 and .NET Core Dynamic Service Registration
 
 This is a NET 5.0 and .NET Core dynamic service registration library which enables you to register all your services into .NET 5.0 and .NET Core Dependency Injection container at once without exposing the service implementation.
@@ -18,7 +22,7 @@ TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://ww
 Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
  
     // Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
-    public class IEmployeeService : IScopedService
+    public interface IEmployeeService : IScopedService
     {
         Task CreateEmployeeAsync(Employee employee);
     }
@@ -37,7 +41,7 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
  
     // Mark with ScopedServiceAttribute if you want to register `IEmployeeService` as scoped service.
     [ScopedService]
-    public class IEmployeeService
+    public interface IEmployeeService
     {
         Task CreateEmployeeAsync(Employee employee);
     }
@@ -74,7 +78,3 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
   # Bug(🐞) Report 
    
    Dont forget to submit an issue if you face. we will try to resolve as soon as possible.
-   
-  # Give a star (⭐)
-   
-   **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star (⭐) to this repository. Thank you.**
