@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TanvirArjel.Extensions.Micr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore", "sample\AspNetCore\AspNetCore.csproj", "{17004C4B-C922-4744-B1F0-86E437056D18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasm", "sample\BlazorWasm\BlazorWasm.csproj", "{BC727A02-DF7F-4C54-9290-CBD59CD19773}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC727A02-DF7F-4C54-9290-CBD59CD19773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC727A02-DF7F-4C54-9290-CBD59CD19773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC727A02-DF7F-4C54-9290-CBD59CD19773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC727A02-DF7F-4C54-9290-CBD59CD19773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385} = {9B5334F5-4EE2-4039-8AA3-06742FADB4BE}
 		{17004C4B-C922-4744-B1F0-86E437056D18} = {D000B078-23C7-44E8-998F-C8F8E56ACCF8}
+		{BC727A02-DF7F-4C54-9290-CBD59CD19773} = {D000B078-23C7-44E8-998F-C8F8E56ACCF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48F15DE9-F94B-4559-88E4-52FEB896CD61}

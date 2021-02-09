@@ -19,8 +19,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         private static List<Assembly> _loadedAssemblies = new List<Assembly>();
 
         /// <summary>
-        /// This extension method is used to register the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
-        /// interfaces.
+        /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
@@ -98,7 +98,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         }
 
         /// <summary>
-        /// This extension method is used to register the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.
+        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
@@ -193,12 +194,14 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
             List<string> assembliesToBeLoaded = new List<string>();
 
+            string appDllsDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
             if (scanAssembliesStartsWith != null && scanAssembliesStartsWith.Any())
             {
                 if (scanAssembliesStartsWith.Length == 1)
                 {
                     string searchPattern = $"{scanAssembliesStartsWith.First()}*.dll";
-                    string[] assemblyPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, searchPattern);
+                    string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
                     assembliesToBeLoaded.AddRange(assemblyPaths);
                 }
 
@@ -207,14 +210,14 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     foreach (string starsWith in scanAssembliesStartsWith)
                     {
                         string searchPattern = $"{starsWith}*.dll";
-                        string[] assemblyPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, searchPattern);
+                        string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
                         assembliesToBeLoaded.AddRange(assemblyPaths);
                     }
                 }
             }
             else
             {
-                string[] assemblyPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+                string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, "*.dll");
                 assembliesToBeLoaded.AddRange(assemblyPaths);
             }
 
