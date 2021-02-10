@@ -1,16 +1,16 @@
-  # Give a star (⭐)
+ # 👑 NET 5.0 and .NET Core Dynamic Service Registration 👑
+
+This is a NET 5.0 and .NET Core dynamic service registration library which enables you to register all your services into .NET 5.0 and .NET Core Dependency Injection container at once without exposing the service implementation.
+ 
+ ## ⭐ Give a star ⭐
    
    **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star (⭐) to this repository. Thank you.**
 
-# NET 5.0 and .NET Core Dynamic Service Registration
-
-This is a NET 5.0 and .NET Core dynamic service registration library which enables you to register all your services into .NET 5.0 and .NET Core Dependency Injection container at once without exposing the service implementation.
-
-# What's new in version 1.0.0
+## ❤️ What's new in version 1.0.0 ❤️
 
 1. This is the initial relase of this library which was previously named as `AspNetCore.ServiceRegistration.Dynamic` [Branch Link](https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection/tree/AspNetCore.ServiceRegistration.Dynamic)
 
-## How do I get started?
+## ✈️ How do I get started? ✈️
 
 First install the lastest version of `
 TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://www.nuget.org/packages/TanvirArjel.Extensions.Microsoft.DependencyInjection) into your project as follows:
@@ -75,6 +75,6 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
        
   ### That's it!!
   
-  # Bug(🐞) Report 
+  ## 🐞 Bug Report 🐞
    
    Dont forget to submit an issue if you face. we will try to resolve as soon as possible.
