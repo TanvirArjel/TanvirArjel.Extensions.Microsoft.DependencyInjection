@@ -1,4 +1,4 @@
- # 👑 NET 5.0 and .NET Core Dynamic Service Registration 👑
+ # 👑 .NET/.NET Core Dynamic Service Registration 👑
 
 This is a NET 5.0 and .NET Core dynamic service registration library which enables you to register all your services into .NET 5.0 and .NET Core Dependency Injection container at once without exposing the service implementation.
  
@@ -17,7 +17,25 @@ TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://ww
  
     Install-Package TanvirArjel.Extensions.Microsoft.DependencyInjection
     
-### Using Marker Interface:
+Now in your `ConfigureServices` method of the `Startup` class:
+  
+    public static void ConfigureServices(IServiceCollection services)
+    {
+        services.AddServicesOfType<IScopedService>();
+        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
+    }
+    
+ Moreover, if you want only specific assemblies to be scanned during type scanning:
+  
+    public static void ConfigureServices(IServiceCollection services)
+    {
+        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
+        string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
+        services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
+        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
+    }
+    
+## 🛠️ Usage: Marker Interface: 🛠️
 
 Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
  
@@ -35,7 +53,7 @@ Now let your services to inherit any of the `ITransientService`, `IScoperService
         };
     }
         
- ### Using Attribute:
+ ## 🛠️ Usage: Attribute: 🛠️
 
 Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribute` attributes as follows:
  
@@ -53,27 +71,6 @@ Now mark your services with any of the `ScopedServiceAttribute`, `TransientServi
            // Implementation here
         };
     }
-        
-  Now in your `ConfigureServices` method of the `Startup` class:
-  
-    public static void ConfigureServices(IServiceCollection services)
-    {
-        services.AddServicesOfType<IScopedService>();
-        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
-    }
-    
-  Moreover, if you want only specific assemblies to be scanned during type scanning:
-  
-    public static void ConfigureServices(IServiceCollection services)
-    {
-        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
-        string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
-        services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
-        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
-    }
-  
-       
-  ### That's it!!
   
   ## 🐞 Bug Report 🐞
    
