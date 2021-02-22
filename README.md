@@ -18,60 +18,68 @@ TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://ww
     Install-Package TanvirArjel.Extensions.Microsoft.DependencyInjection
     
 Now in your `ConfigureServices` method of the `Startup` class:
-  
-    public static void ConfigureServices(IServiceCollection services)
-    {
-        services.AddServicesOfType<IScopedService>();
-        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
-    }
+
+```C#
+public static void ConfigureServices(IServiceCollection services)
+{
+    services.AddServicesOfType<IScopedService>();
+    services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
+}
+```
     
  Moreover, if you want only specific assemblies to be scanned during type scanning:
-  
-    public static void ConfigureServices(IServiceCollection services)
-    {
-        // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
-        string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
-        services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
-        services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
-    }
+
+```C#
+public static void ConfigureServices(IServiceCollection services)
+{
+    // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
+    string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
+    services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
+    services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
+}
+```
     
 ## 🛠️ Usage: Marker Interface: 🛠️
 
 Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
- 
-    // Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
-    public interface IEmployeeService : IScopedService
+
+```C#
+// Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
+public interface IEmployeeService : IScopedService
+{
+    Task CreateEmployeeAsync(Employee employee);
+}
+
+internal class EmployeeService : IEmployeeService 
+{
+    public async Task CreateEmployeeAsync(Employee employee)
     {
-        Task CreateEmployeeAsync(Employee employee);
-    }
+        // Implementation here
+    };
+}
+```
         
-    internal class EmployeeService : IEmployeeService 
-    {
-        public async Task CreateEmployeeAsync(Employee employee)
-        {
-            // Implementation here
-        };
-    }
-        
- ## 🛠️ Usage: Attribute: 🛠️
+## 🛠️ Usage: Attribute: 🛠️
 
 Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribute` attributes as follows:
- 
-    // Mark with ScopedServiceAttribute if you want to register `IEmployeeService` as scoped service.
-    [ScopedService]
-    public interface IEmployeeService
+
+```C#
+// Mark with ScopedServiceAttribute if you want to register `IEmployeeService` as scoped service.
+[ScopedService]
+public interface IEmployeeService
+{
+    Task CreateEmployeeAsync(Employee employee);
+}
+
+internal class EmployeeService : IEmployeeService 
+{
+    public async Task CreateEmployeeAsync(Employee employee)
     {
-        Task CreateEmployeeAsync(Employee employee);
-    }
-        
-    internal class EmployeeService : IEmployeeService 
-    {
-        public async Task CreateEmployeeAsync(Employee employee)
-        {
-           // Implementation here
-        };
-    }
+       // Implementation here
+    };
+}
+```
   
-  ## 🐞 Bug Report 🐞
+## 🐞 Bug Report 🐞
    
    Dont forget to submit an issue if you face. we will try to resolve as soon as possible.
