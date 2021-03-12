@@ -1,5 +1,5 @@
 ﻿// <copyright file="ServiceCollectionExtensions.cs" company="TanvirArjel">
-// Copyright (c) TanvirArjel. All rights reserved.
+// Copyright (c) TanvirArjel and Thomas Guenther. All rights reserved.
 // </copyright>
 
 using System;
@@ -17,6 +17,44 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         private static List<Assembly> _loadedAssemblies = new List<Assembly>();
+
+        /// <summary>
+        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// Therefor only the list with given assemblies will be used: no directory scanning in this case.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="loadedAssemblies">A list of assembly to be scanned for type attributes.</param>
+        public static void AddServicesWithAttributeOfTypeForAssemblies<T>(this IServiceCollection serviceCollection, params Assembly[] loadedAssemblies)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            _loadedAssemblies = loadedAssemblies.OfType<Assembly>().ToList();
+            AddServicesWithAttributeOfType<T>(serviceCollection);
+        }
+
+        /// <summary>
+        /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// Therefor only the list with given assemblies will be used: no directory scanning in this case.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="loadedAssemblies">A list of assembly to be scanned for the given type param.</param>
+        public static void AddServicesOfTypeForAssemblies<T>(this IServiceCollection serviceCollection, params Assembly[] loadedAssemblies)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            _loadedAssemblies = loadedAssemblies.OfType<Assembly>().ToList();
+            AddServicesOfType<T>(serviceCollection);
+        }
 
         /// <summary>
         /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
@@ -51,7 +89,12 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
             if (!_loadedAssemblies.Any())
             {
+                Console.WriteLine("Scanning of assemblies necessary....");
                 LoadAssemblies(scanAssembliesStartsWith);
+            }
+            else
+            {
+                Console.WriteLine("List of assemblies already filled....");
             }
 
             List<Type> implementations = _loadedAssemblies
@@ -130,7 +173,12 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
             if (!_loadedAssemblies.Any())
             {
+                Console.WriteLine("Scanning of assemblies necessary....");
                 LoadAssemblies(scanAssembliesStartsWith);
+            }
+            else
+            {
+                Console.WriteLine("List of assemblies already filled....");
             }
 
             List<Type> servicesToBeRegistered = _loadedAssemblies
@@ -201,7 +249,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                 if (scanAssembliesStartsWith.Length == 1)
                 {
                     string searchPattern = $"{scanAssembliesStartsWith.First()}*.dll";
-                    string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
+                    string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern, SearchOption.AllDirectories);
+
                     assembliesToBeLoaded.AddRange(assemblyPaths);
                 }
 
@@ -210,14 +259,14 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     foreach (string starsWith in scanAssembliesStartsWith)
                     {
                         string searchPattern = $"{starsWith}*.dll";
-                        string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
+                        string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern, SearchOption.AllDirectories);
                         assembliesToBeLoaded.AddRange(assemblyPaths);
                     }
                 }
             }
             else
             {
-                string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, "*.dll");
+                string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, "*.dll", SearchOption.AllDirectories);
                 assembliesToBeLoaded.AddRange(assemblyPaths);
             }
 
