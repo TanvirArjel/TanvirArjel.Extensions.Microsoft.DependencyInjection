@@ -24,6 +24,57 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="assemblyToBeScanned">The <see cref="Assembly"/> will only be scanned.</param>
+        public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, Assembly assemblyToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assemblyToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyToBeScanned));
+            }
+
+            _loadedAssemblies = new List<Assembly> { assemblyToBeScanned };
+            AddServicesOfType<T>(serviceCollection, Array.Empty<string>());
+        }
+
+        /// <summary>
+        /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="assembliesToBeScanned">The <see cref="List{T}"/> of <see cref="Assembly"/> will only be scanned.</param>
+        public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, Assembly[] assembliesToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assembliesToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assembliesToBeScanned));
+            }
+
+            if (!assembliesToBeScanned.Any())
+            {
+                throw new ArgumentException($"The {assembliesToBeScanned} is empty.", nameof(assembliesToBeScanned));
+            }
+
+            _loadedAssemblies = assembliesToBeScanned.OfType<Assembly>().ToList();
+            AddServicesOfType<T>(serviceCollection, Array.Empty<string>());
+        }
+
+        /// <summary>
+        /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
         /// <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
         public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, params string[] scanAssembliesStartsWith)
         {
@@ -49,18 +100,17 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     throw new ArgumentException($"The type {typeof(T).Name} is not a valid type in this context.");
             }
 
-            if (!_loadedAssemblies.Any())
-            {
-                LoadAssemblies(scanAssembliesStartsWith);
-            }
+            LoadAssemblies(scanAssembliesStartsWith);
 
             List<Type> implementations = _loadedAssemblies
-                .SelectMany(assembly => assembly.GetTypes()).Where(type => typeof(T).IsAssignableFrom(type) && type.IsClass).ToList();
+                .SelectMany(assembly => assembly.GetTypes()).Where(type => typeof(T).IsAssignableFrom(type) && type != typeof(T)).ToList();
 
-            foreach (Type implementation in implementations)
+            List<Type> implementationClasses = implementations.Where(type => type.IsClass).ToList();
+            List<Type> implementationInterfaces = implementations.Where(type => type.IsInterface).ToList();
+
+            foreach (Type implementation in implementationClasses)
             {
-                Type[] servicesToBeRegistered = implementation.GetInterfaces()
-                    .Where(i => i != typeof(ITransientService) && i != typeof(IScopedService) && i != typeof(ISingletonService)).ToArray();
+                Type[] servicesToBeRegistered = implementation.GetInterfaces().Where(i => implementationInterfaces.Contains(i)).ToArray();
 
                 if (servicesToBeRegistered.Any())
                 {
@@ -103,6 +153,57 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="assemblyToBeScanned">The <see cref="Assembly"/> will only be scanned.</param>
+        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, Assembly assemblyToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assemblyToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyToBeScanned));
+            }
+
+            _loadedAssemblies = new List<Assembly> { assemblyToBeScanned };
+            AddServicesWithAttributeOfType<T>(serviceCollection, Array.Empty<string>());
+        }
+
+        /// <summary>
+        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
+        /// <param name="assembliesToBeScanned">The <see cref="List{T}"/> of <see cref="Assembly"/> will only be scanned.</param>
+        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, Assembly[] assembliesToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assembliesToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assembliesToBeScanned));
+            }
+
+            if (!assembliesToBeScanned.Any())
+            {
+                throw new ArgumentException($"The {assembliesToBeScanned} is empty.", nameof(assembliesToBeScanned));
+            }
+
+            _loadedAssemblies = assembliesToBeScanned.OfType<Assembly>().ToList();
+            AddServicesWithAttributeOfType<T>(serviceCollection, Array.Empty<string>());
+        }
+
+        /// <summary>
+        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// </summary>
+        /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
+        /// <param name="serviceCollection">Type to be extended.</param>
         /// <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
         public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, params string[] scanAssembliesStartsWith)
         {
@@ -128,10 +229,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     throw new ArgumentException($"The type {typeof(T).Name} is not a valid type in this context.");
             }
 
-            if (!_loadedAssemblies.Any())
-            {
-                LoadAssemblies(scanAssembliesStartsWith);
-            }
+            LoadAssemblies(scanAssembliesStartsWith);
 
             List<Type> servicesToBeRegistered = _loadedAssemblies
                 .SelectMany(assembly => assembly.GetTypes()).Where(type => type.IsDefined(typeof(T), false)).ToList();
@@ -190,6 +288,11 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
         private static void LoadAssemblies(params string[] scanAssembliesStartsWith)
         {
+            if (_loadedAssemblies.Any())
+            {
+                return;
+            }
+
             List<Assembly> loadedAssemblies = new List<Assembly>();
 
             List<string> assembliesToBeLoaded = new List<string>();
@@ -201,7 +304,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                 if (scanAssembliesStartsWith.Length == 1)
                 {
                     string searchPattern = $"{scanAssembliesStartsWith.First()}*.dll";
-                    string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
+                    string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern, SearchOption.AllDirectories);
                     assembliesToBeLoaded.AddRange(assemblyPaths);
                 }
 
@@ -210,7 +313,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     foreach (string starsWith in scanAssembliesStartsWith)
                     {
                         string searchPattern = $"{starsWith}*.dll";
-                        string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern);
+                        string[] assemblyPaths = Directory.GetFiles(appDllsDirectory, searchPattern, SearchOption.AllDirectories);
                         assembliesToBeLoaded.AddRange(assemblyPaths);
                     }
                 }

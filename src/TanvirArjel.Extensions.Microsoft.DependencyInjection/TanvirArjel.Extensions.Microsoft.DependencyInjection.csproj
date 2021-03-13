@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netcoreapp3.1;net5.0</TargetFrameworks>
-    <Version>1.0.1</Version>
+    <Version>1.2.0</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>TanvirArjel</Authors>
@@ -21,7 +21,7 @@
 This library supports both the marker interface and attribute-based service registration.
 
 For configuration details please visit the GitHub repository.</Description>
-    <PackageReleaseNotes>1. XML comment issue has been fixed.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Blazor WebAssembly support has been added.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
