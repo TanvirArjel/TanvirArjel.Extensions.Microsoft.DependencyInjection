@@ -38,6 +38,13 @@ public static void ConfigureServices(IServiceCollection services)
     services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
 }
 ```
+
+### For Blazor WebAssembly App:
+
+```C@
+builder.Services.AddServicesOfType<ITransientService>(Assembly.GetExecutingAssembly());
+builder.Services.AddServicesOfType<IScopedService>(Assembly.GetExecutingAssembly());
+```
     
 ## 🛠️ Usage: Marker Interface: 🛠️
 
