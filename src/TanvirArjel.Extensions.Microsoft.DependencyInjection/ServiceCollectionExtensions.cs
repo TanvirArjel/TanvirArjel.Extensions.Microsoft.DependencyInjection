@@ -110,7 +110,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
             foreach (Type implementation in implementationClasses)
             {
-                Type[] servicesToBeRegistered = implementation.GetInterfaces().Where(i => implementationInterfaces.Contains(i)).ToArray();
+                Type[] servicesToBeRegistered = implementation.GetInterfaces()
+                    .Where(i => implementationInterfaces.Select(ii => ii.Name).Contains(i.Name)).ToArray();
 
                 if (servicesToBeRegistered.Any())
                 {
