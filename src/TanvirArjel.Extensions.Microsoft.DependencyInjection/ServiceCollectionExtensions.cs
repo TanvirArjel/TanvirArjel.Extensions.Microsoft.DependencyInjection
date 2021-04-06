@@ -19,6 +19,83 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         private static List<Assembly> _loadedAssemblies = new List<Assembly>();
 
         /// <summary>
+        /// <para>
+        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// </para>
+        /// </summary>
+        /// <param name="serviceCollection">The type that has been extended.</param>
+        /// <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
+        public static void AddServicesOfAllTypes(this IServiceCollection serviceCollection, params string[] scanAssembliesStartsWith)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            AddServicesOfType<ITransientService>(serviceCollection, scanAssembliesStartsWith);
+            AddServicesOfType<IScopedService>(serviceCollection, scanAssembliesStartsWith);
+            AddServicesOfType<ISingletonService>(serviceCollection, scanAssembliesStartsWith);
+
+            AddServicesWithAttributeOfType<TransientServiceAttribute>(serviceCollection, scanAssembliesStartsWith);
+            AddServicesWithAttributeOfType<ScopedServiceAttribute>(serviceCollection, scanAssembliesStartsWith);
+            AddServicesWithAttributeOfType<SingletonServiceAttribute>(serviceCollection, scanAssembliesStartsWith);
+        }
+
+        /// <summary>
+        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// </summary>
+        /// <param name="serviceCollection">The type that has been extended.</param>
+        /// <param name="assemblyToBeScanned">The <see cref="Assembly"/> will only be scanned.</param>
+        public static void AddServicesOfAllTypes(this IServiceCollection serviceCollection, Assembly assemblyToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assemblyToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assemblyToBeScanned));
+            }
+
+            List<Assembly> assemblies = new List<Assembly> { assemblyToBeScanned };
+            AddServicesOfAllTypes(serviceCollection, assemblies);
+        }
+
+        /// <summary>
+        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// interfaces to the dependency injection container.
+        /// </summary>
+        /// <param name="serviceCollection">The type that has been extended.</param>
+        /// <param name="assembliesToBeScanned">The <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> which will be scanned.</param>
+        public static void AddServicesOfAllTypes(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
+        {
+            if (serviceCollection == null)
+            {
+                throw new ArgumentNullException(nameof(serviceCollection));
+            }
+
+            if (assembliesToBeScanned == null)
+            {
+                throw new ArgumentNullException(nameof(assembliesToBeScanned));
+            }
+
+            AddServicesOfType<ITransientService>(serviceCollection, assembliesToBeScanned);
+            AddServicesOfType<IScopedService>(serviceCollection, assembliesToBeScanned);
+            AddServicesOfType<ISingletonService>(serviceCollection, assembliesToBeScanned);
+
+            AddServicesWithAttributeOfType<TransientServiceAttribute>(serviceCollection, assembliesToBeScanned);
+            AddServicesWithAttributeOfType<ScopedServiceAttribute>(serviceCollection, assembliesToBeScanned);
+            AddServicesWithAttributeOfType<SingletonServiceAttribute>(serviceCollection, assembliesToBeScanned);
+        }
+
+        /// <summary>
         /// This will add all the types implementing any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
         /// interfaces to the dependency injection container.
         /// </summary>
@@ -47,8 +124,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/> interfaces.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
-        /// <param name="assembliesToBeScanned">The <see cref="List{T}"/> of <see cref="Assembly"/> will only be scanned.</param>
-        public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, Assembly[] assembliesToBeScanned)
+        /// <param name="assembliesToBeScanned">The <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> which will be scanned.</param>
+        public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
         {
             if (serviceCollection == null)
             {
@@ -177,8 +254,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>
-        /// <param name="assembliesToBeScanned">The <see cref="List{T}"/> of <see cref="Assembly"/> will only be scanned.</param>
-        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, Assembly[] assembliesToBeScanned)
+        /// <param name="assembliesToBeScanned">The <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> which will only be scanned.</param>
+        public static void AddServicesWithAttributeOfType<T>(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
         {
             if (serviceCollection == null)
             {
@@ -294,7 +371,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                 return;
             }
 
-            List<Assembly> loadedAssemblies = new List<Assembly>();
+            HashSet<Assembly> loadedAssemblies = new HashSet<Assembly>();
 
             List<string> assembliesToBeLoaded = new List<string>();
 
@@ -338,7 +415,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                 }
             }
 
-            _loadedAssemblies = loadedAssemblies;
+            _loadedAssemblies = loadedAssemblies.ToList();
         }
     }
 }

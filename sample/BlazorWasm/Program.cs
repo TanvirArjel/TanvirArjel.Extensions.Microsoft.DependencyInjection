@@ -22,11 +22,7 @@ namespace BlazorWasm
 
             builder.Services.Replace(ServiceDescriptor.Transient<IComponentActivator, ServiceProviderComponentActivator>());
 
-            ////builder.Services.AddServicesOfType<ITransientService>(Assembly.GetExecutingAssembly());
-            ////builder.Services.AddServicesOfType<IScopedService>(Assembly.GetExecutingAssembly());
-
-            builder.Services.AddServicesWithAttributeOfType<TransientServiceAttribute>(Assembly.GetExecutingAssembly());
-            builder.Services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(Assembly.GetExecutingAssembly());
+            builder.Services.AddServicesOfAllTypes(new[] { Assembly.GetExecutingAssembly() });
 
             await builder.Build().RunAsync();
         }
