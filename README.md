@@ -19,23 +19,40 @@ TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://ww
     
 Now in your `ConfigureServices` method of the `Startup` class:
 
+### To register specific type:
+
 ```C#
 public static void ConfigureServices(IServiceCollection services)
 {
+    services.AddServicesOfType<ITransientService>();
     services.AddServicesOfType<IScopedService>();
+    services.AddServicesOfType<ISingletonService>();
+    
+    services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
     services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
+    services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
+    
+    services.AddHostedServices();
+}
+```
+
+### To register all types at once:
+
+```C#
+public static void ConfigureServices(IServiceCollection services)
+{
+    services.AddServicesOfAllTypes();
 }
 ```
     
- Moreover, if you want only specific assemblies to be scanned during type scanning:
+Moreover, if you want only specific assemblies to be scanned during type scanning:
 
 ```C#
 public static void ConfigureServices(IServiceCollection services)
 {
     // Assemblies start with "TanvirArjel.Web", "TanvirArjel.Application" will only be scanned.
     string[] assembliesToBeScanned = new string[] { "TanvirArjel.Web", "TanvirArjel.Application" };
-    services.AddServicesOfType<IScopedService>(assembliesToBeScanned);
-    services.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
+    services.AddServicesOfAllTypes(assembliesToBeScanned);
 }
 ```
 
@@ -84,6 +101,20 @@ internal class EmployeeService : IEmployeeService
     {
        // Implementation here
     };
+}
+```
+
+### For hosted service:
+
+```C#
+[HostedService]
+public class TestBackgroundService : BackgroundService
+{
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        Console.WriteLine("Hosted service called.");
+        await Task.CompletedTask.ConfigureAwait(false);
+    }
 }
 ```
   
