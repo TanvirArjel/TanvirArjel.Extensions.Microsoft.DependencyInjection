@@ -10,7 +10,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>TanvirArjel</Authors>
     <Company>Tanvir Ahmad Arjel</Company>
-    <Copyright>©2019 TanvirArjel. All rights reserved.</Copyright>
+    <Copyright>©2021 TanvirArjel. All rights reserved.</Copyright>
     <Title>NET 5.0 and .NET Core Dynamic Service Registration</Title>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection</PackageProjectUrl>
@@ -24,7 +24,9 @@
 This library supports both the marker interface and attribute-based service registration.
 
 For configuration details please visit the GitHub repository.</Description>
-    <PackageReleaseNotes>1. Blazor WebAssembly support has been added.</PackageReleaseNotes>
+    <PackageReleaseNotes>1. Blazor WebAssembly support has been added.
+
+2. HostedServiceAttribute has been added for IHostedService</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

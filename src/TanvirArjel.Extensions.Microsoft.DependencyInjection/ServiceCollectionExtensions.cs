@@ -6,22 +6,27 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 {
     /// <summary>
-    /// Contains all the <see cref="IServiceCollection"/> extension methods for dynamic service registration.
+    /// Contains <see cref="IServiceCollection"/> extension methods for dynamic service registration.
     /// </summary>
     public static class ServiceCollectionExtensions
     {
         /// <summary>
         /// <para>
-        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
         /// interfaces to the dependency injection container.
         /// </para>
         /// <para>
-        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
         /// to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// the dependency injection container.
         /// </para>
         /// </summary>
         /// <param name="serviceCollection">The type that has been extended.</param>
@@ -39,8 +44,18 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         }
 
         /// <summary>
-        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// <para>
+        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
         /// interfaces to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// the dependency injection container.
+        /// </para>
         /// </summary>
         /// <param name="serviceCollection">The type that has been extended.</param>
         /// <param name="assemblyToBeScanned">The <see cref="Assembly"/> will only be scanned.</param>
@@ -63,8 +78,18 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         }
 
         /// <summary>
-        /// This will add all the types implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
+        /// <para>
+        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
         /// interfaces to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// to the dependency injection container.
+        /// </para>
+        /// <para>
+        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// the dependency injection container.
+        /// </para>
         /// </summary>
         /// <param name="serviceCollection">The type that has been extended.</param>
         /// <param name="assembliesToBeScanned">The <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> which will be scanned.</param>
@@ -89,6 +114,8 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
             serviceCollection.AddServicesWithAttributeOfType<TransientServiceAttribute>(assembliesToBeScanned);
             serviceCollection.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);
             serviceCollection.AddServicesWithAttributeOfType<SingletonServiceAttribute>(assembliesToBeScanned);
+
+            serviceCollection.AddHostedServices(assembliesToBeScanned);
         }
     }
 }

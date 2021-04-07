@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="HostedServiceCollectionExtensions.cs" company="TanvirArjel">
+// Copyright (c) TanvirArjel. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,10 +13,17 @@ using Microsoft.Extensions.Hosting;
 namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 {
     /// <summary>
-    /// Contains all the <see cref="IServiceCollection"/> extension methods for dynamic service registration.
+    /// Contains <see cref="IServiceCollection"/> extension methods to register all the <see cref="IHostedService"/>
+    /// containing <see cref="HostedServiceAttribute"/> attribute at once.
     /// </summary>
     public static class HostedServiceCollectionExtensions
     {
+        /// <summary>
+        /// Add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to the <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <param name="serviceCollection">The type to be extended.</param>
+        /// <param name="scanAssembliesStartsWith">Assemblies to be scanned.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
         public static void AddHostedServices(this IServiceCollection serviceCollection, params string[] scanAssembliesStartsWith)
         {
             if (serviceCollection == null)
@@ -24,6 +35,12 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
             AddHostedServices(serviceCollection, assemblies);
         }
 
+        /// <summary>
+        /// Add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to the <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <param name="serviceCollection">The type to be extended.</param>
+        /// <param name="assemblyToBeScanned"><see cref="Assembly"/> to be scanned.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
         public static void AddHostedServices(this IServiceCollection serviceCollection, Assembly assemblyToBeScanned)
         {
             if (serviceCollection == null)
@@ -35,6 +52,12 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
             AddHostedServices(serviceCollection, assemblies);
         }
 
+        /// <summary>
+        /// Add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to the <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <param name="serviceCollection">The type to be extended.</param>
+        /// <param name="assembliesToBeScanned">Assemblies to be scanned.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
         public static void AddHostedServices(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
         {
             if (serviceCollection == null)

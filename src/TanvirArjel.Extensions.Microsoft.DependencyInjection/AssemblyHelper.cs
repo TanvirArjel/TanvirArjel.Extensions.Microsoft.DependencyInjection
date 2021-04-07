@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="AssemblyHelper.cs" company="TanvirArjel">
+// Copyright (c) TanvirArjel. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="AttributeBasedServiceCollectionExtensions.cs" company="TanvirArjel">
+// Copyright (c) TanvirArjel. All rights reserved.
+// </copyright>
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,13 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 {
     /// <summary>
-    /// Contains all the <see cref="IServiceCollection"/> extension methods for dynamic service registration.
+    /// Contains <see cref="IServiceCollection"/> extension methods to register all the services containing
+    /// <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.
     /// </summary>
     public static class AttributeBasedServiceCollectionExtensions
     {
         /// <summary>
-        /// This will add all the types containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
-        /// to the dependency injection container.
+        /// Add all the services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/>
+        /// and <see cref="SingletonServiceAttribute"/> attributes to the dependency injection container.
         /// </summary>
         /// <typeparam name="T">Any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes.</typeparam>
         /// <param name="serviceCollection">Type to be extended.</param>

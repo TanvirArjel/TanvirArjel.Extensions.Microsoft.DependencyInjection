@@ -11,7 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 {
     /// <summary>
-    /// Contains all the <see cref="IServiceCollection"/> extension methods for dynamic service registration.
+    /// Contains <see cref="IServiceCollection"/> extension methods to register all the services
+    /// implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>.
     /// </summary>
     public static class InterfaceBasedServiceCollectionExtensions
     {
