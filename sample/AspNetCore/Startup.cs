@@ -20,6 +20,7 @@ namespace AspNetCore
         public static void ConfigureServices(IServiceCollection services)
         {
             services.AddServicesOfAllTypes("AspNetCore");
+            services.AddHostedServices();
             services.AddControllersWithViews();
         }
 
