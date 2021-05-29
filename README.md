@@ -15,21 +15,6 @@ TanvirArjel.Extensions.Microsoft.DependencyInjection` [nuget package](https://ww
     
 Now in your `ConfigureServices` method of the `Startup` class:
 
-### To register specific type:
-
-```C#
-public static void ConfigureServices(IServiceCollection services)
-{ 
-    services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
-    services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
-    services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
-    
-    services.AddHostedServices();
-}
-```
-
-### To register all types at once:
-
 ```C#
 public static void ConfigureServices(IServiceCollection services)
 {
