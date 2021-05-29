@@ -14,6 +14,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
     /// Contains <see cref="IServiceCollection"/> extension methods to register all the services
     /// implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>.
     /// </summary>
+    [Obsolete("This has been marked as obsolete and will be removed in next version.")]
     public static class InterfaceBasedServiceCollectionExtensions
     {
         /// <summary>
@@ -24,6 +25,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// <param name="serviceCollection">Type to be extended.</param>
         /// <param name="scanAssembliesStartsWith">Assembly name starts with any of the provided strings will only be scanned.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
+        [Obsolete("This has been marked as obsolete and will be removed in next version. Please use `AddServicesOfAllTypes()` method instead.")]
         public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, params string[] scanAssembliesStartsWith)
         {
             if (serviceCollection == null)
@@ -44,6 +46,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// <param name="assemblyToBeScanned">The <see cref="Assembly"/> will only be scanned.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="assemblyToBeScanned"/> is <see langword="null"/>.</exception>
+        [Obsolete("This has been marked as obsolete and will be removed in next version. Please use `AddServicesOfAllTypes()` method instead.")]
         public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, Assembly assemblyToBeScanned)
         {
             if (serviceCollection == null)
@@ -69,6 +72,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
         /// <param name="assembliesToBeScanned">The <see cref="IEnumerable{T}"/> of <see cref="Assembly"/> which will be scanned.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="serviceCollection"/> is <see langword="null"/>.</exception>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="assembliesToBeScanned"/> is <see langword="null"/>.</exception>
+        [Obsolete("This has been marked as obsolete and will be removed in next version. Please use `AddServicesOfAllTypes()` method instead.")]
         public static void AddServicesOfType<T>(this IServiceCollection serviceCollection, IEnumerable<Assembly> assembliesToBeScanned)
         {
             if (serviceCollection == null)
