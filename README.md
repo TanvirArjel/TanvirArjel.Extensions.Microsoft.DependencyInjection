@@ -6,10 +6,6 @@ This is a NET 5.0 and .NET Core dynamic service registration library which enabl
    
    **If you find this library useful to you, please don't forget to encouraging me to do such more stuffs by giving a star (⭐) to this repository. Thank you.**
 
-## ❤️ What's new in version 1.0.0
-
-1. This is the initial relase of this library which was previously named as `AspNetCore.ServiceRegistration.Dynamic` [Branch Link](https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection/tree/AspNetCore.ServiceRegistration.Dynamic)
-
 ## ✈️ How do I get started?
 
 First install the lastest version of `
@@ -23,11 +19,7 @@ Now in your `ConfigureServices` method of the `Startup` class:
 
 ```C#
 public static void ConfigureServices(IServiceCollection services)
-{
-    services.AddServicesOfType<ITransientService>();
-    services.AddServicesOfType<IScopedService>();
-    services.AddServicesOfType<ISingletonService>();
-    
+{ 
     services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
     services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();
     services.AddServicesWithAttributeOfType<SingletonServiceAttribute>();
@@ -61,28 +53,8 @@ public static void ConfigureServices(IServiceCollection services)
 ```C@
 builder.Services.AddServicesOfAllTypes(Assembly.GetExecutingAssembly());
 ```
-    
-## 🛠️ Usage: Marker Interface:
-
-Now let your services to inherit any of the `ITransientService`, `IScoperService` and `ISingletonService` marker interfaces as follows:
-
-```C#
-// Inherit `IScopedService` interface if you want to register `IEmployeeService` as scoped service.
-public interface IEmployeeService : IScopedService
-{
-    Task CreateEmployeeAsync(Employee employee);
-}
-
-internal class EmployeeService : IEmployeeService 
-{
-    public async Task CreateEmployeeAsync(Employee employee)
-    {
-        // Implementation here
-    };
-}
-```
         
-## 🛠️ Usage: Attribute:
+## 🛠️ Usage:
 
 Now mark your services with any of the `ScopedServiceAttribute`, `TransientServiceAttribute` and `SingletonServiceAttribute` attributes as follows:
 
