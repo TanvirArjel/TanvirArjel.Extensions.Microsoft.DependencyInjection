@@ -12,13 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9B5334F5-4EE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{D000B078-23C7-44E8-998F-C8F8E56ACCF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TanvirArjel.Extensions.Microsoft.DependencyInjection", "src\TanvirArjel.Extensions.Microsoft.DependencyInjection\TanvirArjel.Extensions.Microsoft.DependencyInjection.csproj", "{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore", "sample\AspNetCore\AspNetCore.csproj", "{17004C4B-C922-4744-B1F0-86E437056D18}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer", "sample\BlazorServer\BlazorServer.csproj", "{48FDEF8B-9F42-445C-AB10-57006D635F48}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasm", "sample\BlazorWasm\BlazorWasm.csproj", "{C9B445AC-2713-49A0-998C-06BB48B9AFE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TanvirArjel.Extensions.Microsoft.DependencyInjection", "src\TanvirArjel.Extensions.Microsoft.DependencyInjection.csproj", "{F0EF9309-92F9-498F-A775-93B2832391E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17004C4B-C922-4744-B1F0-86E437056D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,15 +38,19 @@ Global
 		{C9B445AC-2713-49A0-998C-06BB48B9AFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9B445AC-2713-49A0-998C-06BB48B9AFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9B445AC-2713-49A0-998C-06BB48B9AFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0EF9309-92F9-498F-A775-93B2832391E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0EF9309-92F9-498F-A775-93B2832391E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0EF9309-92F9-498F-A775-93B2832391E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0EF9309-92F9-498F-A775-93B2832391E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8E5193B6-DAEC-4DF0-A5AE-E0A88B7FA385} = {9B5334F5-4EE2-4039-8AA3-06742FADB4BE}
 		{17004C4B-C922-4744-B1F0-86E437056D18} = {D000B078-23C7-44E8-998F-C8F8E56ACCF8}
 		{48FDEF8B-9F42-445C-AB10-57006D635F48} = {D000B078-23C7-44E8-998F-C8F8E56ACCF8}
 		{C9B445AC-2713-49A0-998C-06BB48B9AFE1} = {D000B078-23C7-44E8-998F-C8F8E56ACCF8}
+		{F0EF9309-92F9-498F-A775-93B2832391E2} = {9B5334F5-4EE2-4039-8AA3-06742FADB4BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48F15DE9-F94B-4559-88E4-52FEB896CD61}

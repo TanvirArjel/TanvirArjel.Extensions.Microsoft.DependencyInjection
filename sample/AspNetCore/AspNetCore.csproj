@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TanvirArjel.Extensions.Microsoft.DependencyInjection\TanvirArjel.Extensions.Microsoft.DependencyInjection.csproj" />
+    <ProjectReference Include="..\..\src\TanvirArjel.Extensions.Microsoft.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>
