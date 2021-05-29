@@ -2,8 +2,8 @@
 
 namespace AspNetCore.Services
 {
-    ////[ScopedService]
-    public interface ITestService : IScopedService
+    [ScopedService]
+    public interface ITestService
     {
         string GetMyName();
     }

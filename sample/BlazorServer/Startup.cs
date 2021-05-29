@@ -27,9 +27,6 @@ namespace BlazorServer
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddServicesOfType<ITransientService>();
-            services.AddServicesOfType<IScopedService>();
-            services.AddServicesOfType<ISingletonService>();
 
             services.AddServicesWithAttributeOfType<TransientServiceAttribute>();
             services.AddServicesWithAttributeOfType<ScopedServiceAttribute>();

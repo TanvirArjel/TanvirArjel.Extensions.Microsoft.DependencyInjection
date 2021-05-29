@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -25,6 +26,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
             return _loadedAssemblies;
         }
 
+        [SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Wrong analysis")]
         private static void LoadAssemblies(params string[] scanAssembliesStartsWith)
         {
             HashSet<Assembly> loadedAssemblies = new HashSet<Assembly>();
@@ -33,7 +35,7 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
             string appDllsDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-            if (scanAssembliesStartsWith != null && scanAssembliesStartsWith.Any())
+            if (scanAssembliesStartsWith?.Any() == true)
             {
                 if (scanAssembliesStartsWith.Length == 1)
                 {

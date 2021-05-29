@@ -7,7 +7,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace BlazorWasm.Pages
 {
     [TransientService]
-    public partial class FetchDataComponent : ITransientService
+    public partial class FetchDataComponent
     {
         private readonly WeatherForecastService _weatherForecastService;
 

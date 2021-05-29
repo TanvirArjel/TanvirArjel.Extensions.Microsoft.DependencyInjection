@@ -17,15 +17,11 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
     {
         /// <summary>
         /// <para>
-        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
-        /// interfaces to the dependency injection container.
-        /// </para>
-        /// <para>
-        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// 1. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
         /// to the dependency injection container.
         /// </para>
         /// <para>
-        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// 2. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
         /// the dependency injection container.
         /// </para>
         /// </summary>
@@ -45,15 +41,11 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
         /// <summary>
         /// <para>
-        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
-        /// interfaces to the dependency injection container.
-        /// </para>
-        /// <para>
-        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// 1. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
         /// to the dependency injection container.
         /// </para>
         /// <para>
-        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// 2. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
         /// the dependency injection container.
         /// </para>
         /// </summary>
@@ -79,15 +71,11 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
         /// <summary>
         /// <para>
-        /// 1. This will add all services implementing <see cref="IScopedService"/>, <see cref="ITransientService"/> and <see cref="ISingletonService"/>
-        /// interfaces to the dependency injection container.
-        /// </para>
-        /// <para>
-        /// 2. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
+        /// 1. This will also add all services containing any of the <see cref="ScopedServiceAttribute"/>, <see cref="TransientServiceAttribute"/> and <see cref="SingletonServiceAttribute"/> attributes
         /// to the dependency injection container.
         /// </para>
         /// <para>
-        /// 3. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
+        /// 2. This will also add all the <see cref="IHostedService"/> containing <see cref="HostedServiceAttribute"/> to
         /// the dependency injection container.
         /// </para>
         /// </summary>
@@ -106,10 +94,6 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
             {
                 throw new ArgumentNullException(nameof(assembliesToBeScanned));
             }
-
-            serviceCollection.AddServicesOfType<ITransientService>(assembliesToBeScanned);
-            serviceCollection.AddServicesOfType<IScopedService>(assembliesToBeScanned);
-            serviceCollection.AddServicesOfType<ISingletonService>(assembliesToBeScanned);
 
             serviceCollection.AddServicesWithAttributeOfType<TransientServiceAttribute>(assembliesToBeScanned);
             serviceCollection.AddServicesWithAttributeOfType<ScopedServiceAttribute>(assembliesToBeScanned);

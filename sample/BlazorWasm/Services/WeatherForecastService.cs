@@ -8,7 +8,7 @@ using TanvirArjel.Extensions.Microsoft.DependencyInjection;
 namespace BlazorWasm.Services
 {
     [ScopedService]
-    public class WeatherForecastService : IScopedService
+    public class WeatherForecastService
     {
         private readonly HttpClient _httpClient;
 
