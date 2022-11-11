@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
-		<Version>2.1.0</Version>
+		<Version>2.2.0</Version>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>TanvirArjel</Authors>
@@ -16,7 +16,7 @@
 		<PackageProjectUrl>https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection</PackageProjectUrl>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/TanvirArjel/TanvirArjel.Extensions.Microsoft.DependencyInjection</RepositoryUrl>
-		<PackageTags>.NET-5.0, .NET-Core, ASP.NET-Core, DependencyInjection, Dynamic-Service-Registration</PackageTags>
+		<PackageTags>.NET-5.0,.NET-6.0,.NET-7.0,.NET-Core, ASP.NET-Core, DependencyInjection, Dynamic-Service-Registration</PackageTags>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<PackageIcon>icon.png</PackageIcon>
 		<Description>
@@ -24,7 +24,10 @@
 
 			For configuration details please visit the GitHub repository.
 		</Description>
-		<PackageReleaseNotes>1..NET 6.0 support has been added.</PackageReleaseNotes>
+		<PackageReleaseNotes>
+			1..NET 7.0 support has been added.
+			2.[IgnoreServiceRegistration] attribute has been added.
+		</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -47,16 +50,16 @@
 		<AdditionalFiles Include="stylecop.json" />
 	</ItemGroup>
 
+	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.*" />
+	</ItemGroup>
+
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.*" />
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.*" />
-	</ItemGroup>
-
-	<ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.*" />
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.*" />
 	</ItemGroup>
 
 	<ItemGroup>

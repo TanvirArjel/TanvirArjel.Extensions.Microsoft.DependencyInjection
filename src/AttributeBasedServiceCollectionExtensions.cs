@@ -103,8 +103,10 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
                     throw new ArgumentException($"The type {typeof(T).Name} is not a valid type in this context.");
             }
 
+            // Get all the types which contains T attribute but not contain [IgnoreServiceRegistration] attribute
             List<Type> servicesToBeRegistered = assembliesToBeScanned
-                .SelectMany(assembly => assembly.GetTypes()).Where(type => type.IsDefined(typeof(T), false)).ToList();
+                .SelectMany(assembly => assembly.GetTypes())
+                .Where(type => type.IsDefined(typeof(T), false) && !type.IsDefined(typeof(IgnoreServiceRegistrationAttribute), false)).ToList();
 
             foreach (Type serviceType in servicesToBeRegistered)
             {
@@ -112,15 +114,18 @@ namespace TanvirArjel.Extensions.Microsoft.DependencyInjection
 
                 if (serviceType.IsGenericType && serviceType.IsGenericTypeDefinition)
                 {
+                    // Get all implementations of serviceType that does not contains [IgnoreServiceRegistration] attribute
                     implementations = assembliesToBeScanned.SelectMany(a => a.GetTypes())
-                    .Where(type => type.IsGenericType && type.IsClass && type.GetInterfaces()
+                    .Where(type => !type.IsDefined(typeof(IgnoreServiceRegistrationAttribute), false) && type.IsGenericType && type.IsClass && type.GetInterfaces()
                     .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == serviceType.GetGenericTypeDefinition()))
                     .ToList();
                 }
                 else
                 {
+                    // Get all implementations of serviceType that does not contains [IgnoreServiceRegistration] attribute
                     implementations = assembliesToBeScanned.SelectMany(a => a.GetTypes())
-                    .Where(type => serviceType.IsAssignableFrom(type) && type.IsClass).ToList();
+                    .Where(type => !type.IsDefined(typeof(IgnoreServiceRegistrationAttribute), false) && serviceType.IsAssignableFrom(type) && type.IsClass)
+                    .ToList();
                 }
 
                 if (implementations.Any())
